@@ -1,0 +1,25 @@
+{
+  "home": "Home",
+  "cart": "Cart",
+  "account": "Account",
+
+  "login": "Log in",
+  "signup": "Sign Up",
+  "create_account": "Create Account",
+
+  "username": "User Name",
+  "email_hint": "Enter your email address",
+
+  "password": "Password",
+  "password_hint": "Enter your password",
+
+  "confirm_password": "Confirm Password",
+  "confirm_password_hint": "Confirm Password",
+
+  "dont_have_account": "Don't have an account?",
+  "already_have_account": "Already have an account?",
+
+  "login_success": "Login Successful",
+
+  "winter_offer": "Get Winter Discount\n20% Off\nFor Children"
+}

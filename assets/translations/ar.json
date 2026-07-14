@@ -1,0 +1,25 @@
+{
+  "home": "الرئيسية",
+  "cart": "السلة",
+  "account": "الحساب",
+
+  "login": "تسجيل الدخول",
+  "signup": "إنشاء حساب",
+  "create_account": "إنشاء حساب",
+
+  "username": "اسم المستخدم",
+  "email_hint": "أدخل البريد الإلكتروني",
+
+  "password": "كلمة المرور",
+  "password_hint": "أدخل كلمة المرور",
+
+  "confirm_password": "تأكيد كلمة المرور",
+  "confirm_password_hint": "أعد إدخال كلمة المرور",
+
+  "dont_have_account": "ليس لديك حساب؟",
+  "already_have_account": "لديك حساب بالفعل؟",
+
+  "login_success": "تم تسجيل الدخول بنجاح",
+
+  "winter_offer": "احصل على خصم الشتاء\nخصم 20%\nللأطفال"
+}
