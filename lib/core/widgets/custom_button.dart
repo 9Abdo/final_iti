@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:project_iti/core/constant/app_color.dart';
@@ -24,12 +23,7 @@ class Custombutton extends StatelessWidget {
       height: height?.h,
       child: ElevatedButton(
         onPressed: onPressed,
-        style: ElevatedButton.styleFrom(
-          backgroundColor: AppColor.primaycolor,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadiusGeometry.circular(10.r),
-          ),
-        ),
+        style: ElevatedButton.styleFrom(backgroundColor: AppColor.primaycolor),
         child: Text(buttonName, style: AppStyle.buttonStyle),
       ),
     );

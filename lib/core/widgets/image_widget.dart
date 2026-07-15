@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,16 +10,18 @@ class Imagewidget extends StatelessWidget {
     required this.width,
     required this.height,
     required this.image,
+    this.radius = 8,
   });
 
   final double width;
   final double height;
   final String image;
+  final double radius;
 
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.circular(8.r),
+      borderRadius: BorderRadius.circular(radius.r),
 
       child: CachedNetworkImage(
         useOldImageOnUrlChange: false,

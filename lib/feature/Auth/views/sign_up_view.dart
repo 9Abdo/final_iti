@@ -1,4 +1,4 @@
-import 'package:dio/dio.dart';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,7 +13,7 @@ import 'package:project_iti/core/widgets/custom_text_field.dart';
 import 'package:project_iti/feature/Auth/cubit/auth_cubit.dart';
 import 'package:project_iti/feature/Auth/cubit/auth_state.dart';
 import 'package:project_iti/feature/Auth/widget/row_auth.dart';
-import 'package:project_iti/feature/services/user_services.dart';
+
 
 class SignUpView extends StatefulWidget {
   const SignUpView({super.key});

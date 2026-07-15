@@ -1,6 +1,4 @@
-
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:project_iti/core/constant/app_color.dart';
 
@@ -31,9 +29,9 @@ class AppStyle {
     fontWeight: FontWeight.w700,
   );
   static TextStyle priceStyle = TextStyle(
-    color: AppColor.subTitleColor,
+    color: AppColor.primaycolor,
+    fontWeight: FontWeight.w600,
     fontSize: 12.sp,
-    fontWeight: FontWeight.w700,
   );
   static TextStyle black24w600 = TextStyle(
     color: AppColor.secondColor,
