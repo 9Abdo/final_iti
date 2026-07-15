@@ -1,4 +1,4 @@
-import 'package:dio/dio.dart';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,10 +10,9 @@ import 'package:project_iti/core/helper/showsnakbar.dart';
 import 'package:project_iti/core/routing/route_const.dart';
 import 'package:project_iti/core/widgets/custom_button.dart';
 import 'package:project_iti/core/widgets/custom_text_field.dart';
-import 'package:project_iti/feature/Auth/cubit/login_cubit.dart';
-import 'package:project_iti/feature/Auth/cubit/login_state.dart';
+import 'package:project_iti/feature/Auth/cubit/auth_cubit.dart';
+import 'package:project_iti/feature/Auth/cubit/auth_state.dart';
 import 'package:project_iti/feature/Auth/widget/row_auth.dart';
-import 'package:project_iti/feature/services/user_services.dart';
 
 class LoginPageView extends StatefulWidget {
   const LoginPageView({super.key});
@@ -39,9 +38,9 @@ class _LoginPageViewState extends State<LoginPageView> {
               child: ConstrainedBox(
                 constraints: BoxConstraints(minHeight: constraints.maxHeight),
                 child: IntrinsicHeight(
-                  child: BlocConsumer<LoginCubit, LoginState>(
+                  child: BlocConsumer<AuthCubit, AuthState>(
                     listener: (context, state) {
-                      if (state is SuccessState) {
+                      if (state is LoginSuccess) {
                         showSankBar(
                           context,
                           text: "login_success".tr(),
@@ -51,7 +50,7 @@ class _LoginPageViewState extends State<LoginPageView> {
                          context.goNamed(RouteName.mainHomeName);
                       }
     
-                      if (state is FailureState) {
+                      if (state is LoginFailure) {
                         showSankBar(
                           context,
                           text: state.error,
@@ -60,7 +59,7 @@ class _LoginPageViewState extends State<LoginPageView> {
                       }
                     },
                     builder: (context, state) {
-                      if (state is LoadingState) {
+                      if (state is LoginLoading) {
                         return const Center(
                           child: CircularProgressIndicator(),
                         );
@@ -135,8 +134,8 @@ class _LoginPageViewState extends State<LoginPageView> {
                           Custombutton(
                             buttonName: "login".tr(),
                             onPressed: () {
-                              context.read<LoginCubit>().loginCubit(
-                                username: emailcontroller.text,
+                              context.read<AuthCubit>().login(
+                                email: emailcontroller.text,
                                 password: passwordController.text,
                               );
                             

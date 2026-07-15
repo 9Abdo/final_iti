@@ -45,6 +45,9 @@ dependencies:
   carousel_slider: ^5.1.2
   dots_indicator: ^4.0.1
   cached_network_image: ^3.4.1
+  firebase_core: ^4.12.1
+  firebase_auth: ^6.5.6
+  cloud_firestore: ^6.7.1
 
 dev_dependencies:
   flutter_test:

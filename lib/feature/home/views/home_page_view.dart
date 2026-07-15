@@ -5,8 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:project_iti/core/constant/app_color.dart';
 import 'package:project_iti/core/constant/app_style.dart';
 import 'package:project_iti/core/widgets/custom_text_field.dart';
-import 'package:project_iti/core/widgets/image_widget.dart';
-import 'package:project_iti/feature/Auth/cubit/login_state.dart';
 import 'package:project_iti/feature/home/cubit/home_cubit.dart';
 import 'package:project_iti/feature/home/cubit/home_state.dart';
 import 'package:project_iti/feature/home/widgets/listtile_profile.dart';
@@ -28,7 +26,7 @@ class HomePageView extends StatelessWidget {
             padding: EdgeInsets.all(12.w),
             child: BlocBuilder<HomeCubit, HomeState>(
               builder: (context, state) {
-                if (state is LoadingState) {
+                if (state is HomeLoadingState) {
                   return Center(child: CircularProgressIndicator());
                 }
                 if (state is HomeFailureState) {
