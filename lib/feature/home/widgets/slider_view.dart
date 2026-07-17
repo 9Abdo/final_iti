@@ -14,7 +14,14 @@ class SliderView extends StatefulWidget {
 }
 
 class _SliderViewState extends State<SliderView> {
-  final List<int> items = [1, 2, 3, 4, 5];
+  final List<int> items = [0, 1, 2, 3, 4];
+  final List<Color> color = [
+    AppColor.primaycolor,
+    Colors.deepOrangeAccent,
+    Colors.teal,
+    Colors.pink,
+    Colors.orange,
+  ];
 
   int currentPage = 0;
 
@@ -28,7 +35,7 @@ class _SliderViewState extends State<SliderView> {
               width: double.infinity,
               height: 135.h,
               decoration: BoxDecoration(
-                color: AppColor.primaycolor,
+                color: color[i],
                 borderRadius: BorderRadius.circular(10.r),
               ),
               child: Row(
@@ -49,7 +56,7 @@ class _SliderViewState extends State<SliderView> {
             viewportFraction: 1,
             autoPlay: true,
             enlargeFactor: 5,
-            
+
             enlargeCenterPage: true,
             onPageChanged: (index, reason) {
               setState(() {

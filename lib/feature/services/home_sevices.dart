@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:project_iti/core/constant/app_endpoint.dart';
 import 'package:project_iti/feature/models/home_model.dart';
 
 
@@ -7,7 +8,7 @@ class HomeServices {
   HomeServices({required this.dio});
   Future<List<Homemodel>> getHomeService() async {
     Response response = await dio.get(
-      "https://api.escuelajs.co/api/v1/products",
+      AppEndpoint.product
     );
     List homeDate = response.data;
     List<Homemodel> dateHome = homeDate

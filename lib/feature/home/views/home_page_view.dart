@@ -1,9 +1,11 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:project_iti/core/constant/app_color.dart';
 import 'package:project_iti/core/constant/app_style.dart';
+import 'package:project_iti/core/helper/dio_helper.dart';
+import 'package:project_iti/core/routing/route_const.dart';
 import 'package:project_iti/core/widgets/custom_text_field.dart';
 import 'package:project_iti/feature/home/cubit/home_cubit.dart';
 import 'package:project_iti/feature/home/cubit/home_state.dart';
@@ -20,20 +22,26 @@ class HomePageView extends StatelessWidget {
     return SafeArea(
       child: BlocProvider(
         create: (context) =>
-            HomeCubit(HomeServices(dio: Dio()))..getAllProduct(),
+            HomeCubit(HomeServices(dio: DioHelper.dio!))..getAllProduct(),
         child: Scaffold(
-          body: SingleChildScrollView(
-            padding: EdgeInsets.all(12.w),
-            child: BlocBuilder<HomeCubit, HomeState>(
-              builder: (context, state) {
-                if (state is HomeLoadingState) {
-                  return Center(child: CircularProgressIndicator());
-                }
-                if (state is HomeFailureState) {
-                  return Text(state.error);
-                }
-                if (state is HomeSuccessState) {
-                  return Column(
+          body: BlocBuilder<HomeCubit, HomeState>(
+            builder: (context, state) {
+              if (state is HomeLoadingState) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+
+              if (state is HomeFailureState) {
+                return Center(
+                  child: Text(state.error),
+                );
+              }
+
+              if (state is HomeSuccessState) {
+                return SingleChildScrollView(
+                  padding: EdgeInsets.all(12.w),
+                  child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const ListtileProfile(),
@@ -58,7 +66,42 @@ class HomePageView extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text("Featured", style: AppStyle.black24w600),
+                          Text(
+                            "Featured",
+                            style: AppStyle.black24w600,
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              context.pushNamed(
+                                RouteName.productName,
+                                extra: state.product,
+                              );
+                            },
+                            child: Text(
+                              "See All",
+                              style: TextStyle(
+                                color: AppColor.primaycolor,
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+
+                      SizedBox(height: 16.h),
+
+                      ListviewContainer(product: state.product),
+
+                      SizedBox(height: 20.h),
+
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Most Popular",
+                            style: AppStyle.black24w600,
+                          ),
                           Text(
                             "See All",
                             style: TextStyle(
@@ -71,32 +114,15 @@ class HomePageView extends StatelessWidget {
                       ),
 
                       SizedBox(height: 16.h),
-                      ListviewContainer(product: state.product,),
-                      SizedBox(height: 10.h),
 
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text("Most Popular", style: AppStyle.black24w600),
-                          Text(
-                            "See All",
-                            style: TextStyle(
-                              color: AppColor.primaycolor,
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ],
-                      ),
-
-                      SizedBox(height: 8.h),
-                      ListviewContainer(product: state.product,),
+                      ListviewContainer(product: state.product),
                     ],
-                  );
-                }
-                return SizedBox();
-              },
-            ),
+                  ),
+                );
+              }
+
+              return const SizedBox.shrink();
+            },
           ),
         ),
       ),

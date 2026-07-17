@@ -2,10 +2,12 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:project_iti/core/helper/dio_helper.dart';
 import 'package:project_iti/core/routing/app_route.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+ DioHelper.initiDio();
   await EasyLocalization.ensureInitialized();
  await Firebase.initializeApp();
 

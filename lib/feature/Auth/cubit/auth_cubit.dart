@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:project_iti/core/helper/cach_helper.dart';
 import 'package:project_iti/feature/Auth/cubit/auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
@@ -29,25 +30,30 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
+
   Future<void> login({
-    required String email,
-    required String password,
-  }) async {
-    emit(LoginLoading());
+  required String email,
+  required String password,
+}) async {
+  emit(LoginLoading());
 
-    try {
-      await auth.signInWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
+  try {
+    UserCredential credential = await auth.signInWithEmailAndPassword(
+      email: email,
+      password: password,
+    );
 
-      emit(LoginSuccess());
-    } on FirebaseAuthException catch (e) {
-      emit(
-        LoginFailure(
-          error: e.message ?? "Opps,Try agian",
-        ),
-      );
-    }
+    final token = await credential.user!.getIdToken();
+
+    await CachHelper.saveToken(token!);
+
+    emit(LoginSuccess());
+  } on FirebaseAuthException catch (e) {
+    emit(
+      LoginFailure(
+        error: e.message ?? "Oops, Try again",
+      ),
+    );
   }
+}
 }
