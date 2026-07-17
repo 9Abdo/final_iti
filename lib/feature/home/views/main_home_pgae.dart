@@ -5,6 +5,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:project_iti/core/constant/app_color.dart';
 import 'package:project_iti/core/helper/dio_helper.dart';
 import 'package:project_iti/feature/Account/views/account_view.dart';
+import 'package:project_iti/feature/cart/views/cart_page_view.dart';
+import 'package:project_iti/feature/cart/views/no_cart_page_view.dart';
 import 'package:project_iti/feature/home/views/home_page_view.dart';
 import 'package:project_iti/feature/search/cubit/search_cubit.dart';
 import 'package:project_iti/feature/search/serchview.dart';
@@ -29,7 +31,7 @@ class _MainHomeViewState extends State<MainHomeView> {
     child: const Searchview(),
   ),
 
-    Scaffold(body: Center(child: Text("Cart"))),
+  CartPageView(),
     AccountView(),
   ];
 

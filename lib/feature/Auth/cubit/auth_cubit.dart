@@ -22,38 +22,108 @@ class AuthCubit extends Cubit<AuthState> {
 
       emit(SignUpSuccess());
     } on FirebaseAuthException catch (e) {
-      emit(
-        SignUpFailure(
-          error: e.message ?? "Opps,Try agian",
-        ),
-      );
+      switch (e.code) {
+        case 'email-already-in-use':
+          emit(
+            SignUpFailure(
+              error: "This account already exists.",
+            ),
+          );
+          break;
+
+        case 'weak-password':
+          emit(
+            SignUpFailure(
+              error: "Password is too weak.",
+            ),
+          );
+          break;
+
+        case 'invalid-email':
+          emit(
+            SignUpFailure(
+              error: "Invalid email address.",
+            ),
+          );
+          break;
+
+        default:
+          emit(
+            SignUpFailure(
+              error: e.message ?? "Something went wrong.",
+            ),
+          );
+      }
     }
   }
 
-
   Future<void> login({
-  required String email,
-  required String password,
-}) async {
-  emit(LoginLoading());
+    required String email,
+    required String password,
+  }) async {
+    emit(LoginLoading());
 
-  try {
-    UserCredential credential = await auth.signInWithEmailAndPassword(
-      email: email,
-      password: password,
-    );
+    try {
+      UserCredential credential = await auth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
 
-    final token = await credential.user!.getIdToken();
+      final token = await credential.user!.getIdToken();
 
-    await CachHelper.saveToken(token!);
+      await CachHelper.saveToken(token!);
 
-    emit(LoginSuccess());
-  } on FirebaseAuthException catch (e) {
-    emit(
-      LoginFailure(
-        error: e.message ?? "Oops, Try again",
-      ),
-    );
+      emit(LoginSuccess());
+    } on FirebaseAuthException catch (e) {
+      switch (e.code) {
+        case 'user-not-found':
+          emit(
+            LoginFailure(
+              error: "Account not found.",
+            ),
+          );
+          break;
+
+        case 'wrong-password':
+          emit(
+            LoginFailure(
+              error: "Incorrect password.",
+            ),
+          );
+          break;
+
+        case 'invalid-email':
+          emit(
+            LoginFailure(
+              error: "Invalid email address.",
+            ),
+          );
+          break;
+
+        case 'invalid-credential':
+          emit(
+            LoginFailure(
+              error: "email or password is incorrect.",
+            ),
+          );
+          break;
+
+        case 'user-disabled':
+          emit(
+            LoginFailure(
+              error: "This account has been disabled.",
+            ),
+          );
+          break;
+
+        default:
+          emit(
+            LoginFailure(
+              error: e.message ?? "Login failed. Please try again.",
+            ),
+          );
+      }
+    }
   }
-}
+
 }
