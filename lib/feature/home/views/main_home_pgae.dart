@@ -6,6 +6,8 @@ import 'package:project_iti/core/constant/app_color.dart';
 import 'package:project_iti/core/helper/dio_helper.dart';
 import 'package:project_iti/feature/Account/views/account_view.dart';
 import 'package:project_iti/feature/cart/views/cart_page_view.dart';
+import 'package:project_iti/feature/favourite/views/favourite_page_view.dart';
+import 'package:project_iti/feature/favourite/views/no_favourite.dart';
 
 import 'package:project_iti/feature/home/views/home_page_view.dart';
 import 'package:project_iti/feature/search/cubit/search_cubit.dart';
@@ -22,16 +24,17 @@ class MainHomeView extends StatefulWidget {
 class _MainHomeViewState extends State<MainHomeView> {
   int currentIndex = 0;
 
-  final List<Widget> pages =  [
+  final List<Widget> pages = [
     HomePageView(),
-     BlocProvider(
-    create: (_) => SearchCubit(
-      SearchService(dio: DioHelper.dio!),
-    ),
-    child: const Searchview(),
-  ),
+    FavouritePageView(),
 
-  CartPageView(),
+    //   BlocProvider(
+    //  create: (_) => SearchCubit(
+    //    SearchService(dio: DioHelper.dio!),
+    //  ),
+    //  child: const Searchview(),
+    //),
+    CartPageView(),
     AccountView(),
   ];
 
@@ -90,9 +93,9 @@ class _MainHomeViewState extends State<MainHomeView> {
                 ),
 
                 NavigationDestination(
-                  icon: const Icon(Icons.search_outlined),
-                  selectedIcon: const Icon(Icons.search),
-                  label: "search".tr(),
+                  icon: const Icon(Icons.favorite_outline),
+                  selectedIcon: const Icon(Icons.favorite),
+                  label: "Favourite",
                 ),
 
                 NavigationDestination(

@@ -10,6 +10,8 @@ import 'package:project_iti/core/widgets/custom_button.dart';
 import 'package:project_iti/core/widgets/image_widget.dart';
 import 'package:project_iti/feature/cart/cubit/cart_cubit.dart';
 import 'package:project_iti/feature/cart/cubit/cart_state.dart';
+import 'package:project_iti/feature/favourite/cubit/favourite_cubit.dart';
+import 'package:project_iti/feature/favourite/cubit/favourite_state.dart';
 import 'package:project_iti/feature/models/home_model.dart';
 
 class ProductDetails extends StatelessWidget {
@@ -49,10 +51,27 @@ class ProductDetails extends StatelessWidget {
                         Positioned(
                           top: 40,
                           right: 14,
-                          child: ContainerIcon(
-                            color: AppColor.containericon,
-                            iconData: Icons.favorite,
-                            iconColor: Colors.red,
+                          child: BlocBuilder<FavouriteCubit, FavouriteState>(
+                            builder: (context, state) {
+                               final favouriteCubit = context.read<FavouriteCubit>();
+
+    final isFavourite = favouriteCubit.isProductInFavourite(product);
+
+                              return ContainerIcon(
+                                color: AppColor.containericon,
+                                iconData: isFavourite
+                                    ? Icons.favorite
+                                    :Icons.favorite_border,
+                                iconColor: Colors.red,
+                                onTap: () {
+                                  if(isFavourite){
+                                    favouriteCubit.removeFromFavourite(product);
+                                  }else{
+                                    favouriteCubit.addToFavourite(product);
+                                  }
+                                },
+                              );
+                            },
                           ),
                         ),
                       ],

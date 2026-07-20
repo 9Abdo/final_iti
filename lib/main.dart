@@ -6,7 +6,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:project_iti/core/helper/dio_helper.dart';
 import 'package:project_iti/core/routing/app_route.dart';
 import 'package:project_iti/feature/cart/cubit/cart_cubit.dart';
+import 'package:project_iti/feature/favourite/cubit/favourite_cubit.dart';
 import 'package:project_iti/feature/services/cart_services.dart';
+import 'package:project_iti/feature/services/favourite_services.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,8 +34,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScreenUtilInit(
       designSize: const Size(390, 844),
-      child: BlocProvider(
-        create: (context) => CartCubit(CartServices()),
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(create: (context) => CartCubit(CartServices())),
+          BlocProvider(create: (context) => FavouriteCubit(FavouriteServices())),
+        ],
         child: MaterialApp.router(
           debugShowCheckedModeBanner: false,
           routerConfig: goRouter,

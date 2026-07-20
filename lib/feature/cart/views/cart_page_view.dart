@@ -62,14 +62,16 @@ class CartPageView extends StatelessWidget {
                         children: [
                           RowPrice(
                             text: "Sub Total",
-                            price: "${cartCubit.subTotal} \$",
+                            price:
+                                "${cartCubit.subTotal.toStringAsFixed(2)} \$",
                           ),
 
                           SizedBox(height: 16.h),
 
                           RowPrice(
                             text: "Discount",
-                            price: "${cartCubit.discountAmount} \$",
+                            price:
+                                "${cartCubit.discountAmount.toStringAsFixed(2)} \$",
                           ),
 
                           SizedBox(height: 16.h),
@@ -90,7 +92,7 @@ class CartPageView extends StatelessWidget {
                               Text("Total", style: AppStyle.textfield),
                               const Spacer(),
                               Text(
-                                "${cartCubit.total} \$",
+                                "${cartCubit.total.toStringAsFixed(2)} \$",
                                 style: AppStyle.textfield,
                               ),
                             ],

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_iti/core/constant/app_style.dart';
 import 'package:project_iti/core/routing/route_const.dart';
 import 'package:project_iti/core/widgets/image_widget.dart';
+import 'package:project_iti/feature/favourite/cubit/favourite_cubit.dart';
+import 'package:project_iti/feature/favourite/cubit/favourite_state.dart';
 import 'package:project_iti/feature/models/home_model.dart';
 
 class ContainerCart extends StatelessWidget {
@@ -14,10 +17,7 @@ class ContainerCart extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        context.pushNamed(
-          RouteName.productDetailsName,
-          extra: homemodel,
-        );
+        context.pushNamed(RouteName.productDetailsName, extra: homemodel);
       },
       child: Container(
         width: 126.w,
@@ -40,14 +40,38 @@ class ContainerCart extends StatelessWidget {
                 Positioned(
                   top: 4,
                   right: 4,
-                  child: Container(
-                    width: 36.w,
-                    height: 36.h,
-                    decoration: const BoxDecoration(
-                      color: Colors.white,
-                      shape: BoxShape.circle,
-                    ),
-                    child: Icon(Icons.favorite_border, size: 20.sp),
+                  child: BlocBuilder<FavouriteCubit, FavouriteState>(
+                    builder: (context, state) {
+                      final favouriteCubit = context.read<FavouriteCubit>();
+                      final isFavourite = favouriteCubit.isProductInFavourite(
+                        homemodel,
+                      );
+
+                      return GestureDetector(
+                        onTap: () {
+                          if (isFavourite) {
+                            favouriteCubit.removeFromFavourite(homemodel);
+                          } else {
+                            favouriteCubit.addToFavourite(homemodel);
+                          }
+                        },
+                        child: Container(
+                          width: 36.w,
+                          height: 36.h,
+                          decoration: const BoxDecoration(
+                            color: Colors.white,
+                            shape: BoxShape.circle,
+                          ),
+                          child: Icon(
+                            isFavourite
+                                ? Icons.favorite
+                                : Icons.favorite_border,
+                            size: 20.sp,
+                            color: isFavourite ? Colors.red : Colors.black,
+                          ),
+                        ),
+                      );
+                    },
                   ),
                 ),
               ],
@@ -63,10 +87,7 @@ class ContainerCart extends StatelessWidget {
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
-                  Text(
-                    "${homemodel.price}\$",
-                    style: AppStyle.priceStyle
-                  ),
+                  Text("${homemodel.price}\$", style: AppStyle.priceStyle),
                 ],
               ),
             ),
