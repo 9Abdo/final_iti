@@ -8,7 +8,6 @@ import 'package:project_iti/feature/Auth/views/sign_up_view.dart';
 import 'package:project_iti/feature/Product/views/product.dart';
 import 'package:project_iti/feature/home/views/main_home_pgae.dart';
 import 'package:project_iti/feature/models/home_model.dart';
-import 'package:project_iti/feature/models/search_model.dart';
 import 'package:project_iti/feature/product_details/views/product_details.dart';
 
 import 'package:project_iti/feature/search/search_result_view.dart';
@@ -59,13 +58,17 @@ GoRouter goRouter = GoRouter(
         return Product(homemodel: products);
       },
     ),
-    GoRoute(
-      path: RoutePath.searchResultPath,
-      name: RouteName.searchResultPath,
-      builder: (context, state) {
-        final products = state.extra as List<SearchModel>;
-        return SearchResultView(searchmodel: products);
-      },
-    ),
+   GoRoute(
+  path: RoutePath.searchResultPath,
+  name: RouteName.searchResultPath,
+  builder: (context, state) {
+    final data = state.extra as Map<String, dynamic>;
+
+    return SearchResultView(
+      searchmodel: data["products"] as List<Homemodel>,
+      query: data["query"] as String,
+    );
+  },
+),
   ],
 );

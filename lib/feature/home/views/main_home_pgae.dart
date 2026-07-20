@@ -1,18 +1,15 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:project_iti/core/constant/app_color.dart';
-import 'package:project_iti/core/helper/dio_helper.dart';
+
 import 'package:project_iti/feature/Account/views/account_view.dart';
 import 'package:project_iti/feature/cart/views/cart_page_view.dart';
 import 'package:project_iti/feature/favourite/views/favourite_page_view.dart';
-import 'package:project_iti/feature/favourite/views/no_favourite.dart';
+
 
 import 'package:project_iti/feature/home/views/home_page_view.dart';
-import 'package:project_iti/feature/search/cubit/search_cubit.dart';
-import 'package:project_iti/feature/search/serchview.dart';
-import 'package:project_iti/feature/services/search_services.dart';
 
 class MainHomeView extends StatefulWidget {
   const MainHomeView({super.key});
@@ -27,13 +24,6 @@ class _MainHomeViewState extends State<MainHomeView> {
   final List<Widget> pages = [
     HomePageView(),
     FavouritePageView(),
-
-    //   BlocProvider(
-    //  create: (_) => SearchCubit(
-    //    SearchService(dio: DioHelper.dio!),
-    //  ),
-    //  child: const Searchview(),
-    //),
     CartPageView(),
     AccountView(),
   ];

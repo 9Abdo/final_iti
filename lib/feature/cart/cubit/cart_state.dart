@@ -4,8 +4,10 @@ abstract class CartState {}
 
 class InitStateCart extends CartState {}
 
-class CartLoadingState extends CartState {}
-
+class CartLoadingState extends CartState {
+  final int productId;
+  CartLoadingState(this.productId);
+}
 
 class NoCartPageState extends CartState {}
 

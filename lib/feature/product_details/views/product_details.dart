@@ -53,20 +53,24 @@ class ProductDetails extends StatelessWidget {
                           right: 14,
                           child: BlocBuilder<FavouriteCubit, FavouriteState>(
                             builder: (context, state) {
-                               final favouriteCubit = context.read<FavouriteCubit>();
+                              final favouriteCubit = context
+                                  .read<FavouriteCubit>();
 
-    final isFavourite = favouriteCubit.isProductInFavourite(product);
+                              final isFavourite = favouriteCubit
+                                  .isProductInFavourite(product);
 
                               return ContainerIcon(
                                 color: AppColor.containericon,
                                 iconData: isFavourite
                                     ? Icons.favorite
-                                    :Icons.favorite_border,
-                                iconColor: Colors.red,
+                                    : Icons.favorite_border,
+                                iconColor: isFavourite
+                                    ? Colors.red
+                                    : Colors.black,
                                 onTap: () {
-                                  if(isFavourite){
+                                  if (isFavourite) {
                                     favouriteCubit.removeFromFavourite(product);
-                                  }else{
+                                  } else {
                                     favouriteCubit.addToFavourite(product);
                                   }
                                 },
@@ -127,7 +131,8 @@ class ProductDetails extends StatelessWidget {
                               final isProductInCart = cartCubit.isProductInCart(
                                 product,
                               );
-                              if (state is CartLoadingState) {
+                              if (state is CartLoadingState &&
+                                  state.productId == product.id) {
                                 return SizedBox(
                                   height: 60.h,
                                   child: Center(

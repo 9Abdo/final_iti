@@ -7,11 +7,10 @@ void showSankBar(
   BuildContext context, {
   required String text,
   required Color color,
- 
 }) {
   AnimatedSnackBar(
     mobileSnackBarPosition: MobileSnackBarPosition.bottom,
-    
+    duration: Duration(milliseconds: 1500),
     builder: (context) {
       return Container(
         width: double.infinity,

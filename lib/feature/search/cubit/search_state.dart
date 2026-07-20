@@ -1,5 +1,5 @@
 
-import 'package:project_iti/feature/models/search_model.dart';
+import 'package:project_iti/feature/models/home_model.dart';
 
 abstract class SearchState {}
 
@@ -8,7 +8,7 @@ class SearchInitial extends SearchState {}
 class SearchLoading extends SearchState {}
 
 class SearchSuccess extends SearchState {
-  final List<SearchModel> products;
+  final List<Homemodel> products;
 
   SearchSuccess(this.products);
 }

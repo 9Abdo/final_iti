@@ -40,7 +40,7 @@ class CartCubit extends Cubit<CartState> {
     try {
       if (isProductInCart(product)) return;
 
-      emit(CartLoadingState());
+      emit(CartLoadingState(product.id));
 
       await Future.delayed(const Duration(seconds: 2));
 

@@ -6,15 +6,18 @@ class SearchCubit extends Cubit<SearchState> {
   SearchCubit(this.service) : super(SearchInitial());
 
   final SearchService service;
+  String lastQuery = "";
 
   Future<void> search(String text) async {
+    lastQuery = text;
     emit(SearchLoading());
 
     try {
       final result = await service.searchProducts(text);
-print(result.length);
+      print(result.length);
+      await Future.delayed(const Duration(seconds: 2));
       emit(SearchSuccess(result));
-          print("Success emitted");
+      print("Success emitted");
     } catch (e) {
       emit(SearchFailure(e.toString()));
     }
