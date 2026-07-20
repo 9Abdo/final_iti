@@ -3,15 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:project_iti/core/constant/app_style.dart';
 
-
 void showSankBar(
   BuildContext context, {
   required String text,
   required Color color,
+ 
 }) {
   AnimatedSnackBar(
     mobileSnackBarPosition: MobileSnackBarPosition.bottom,
-
+    
     builder: (context) {
       return Container(
         width: double.infinity,

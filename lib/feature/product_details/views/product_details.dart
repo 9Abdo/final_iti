@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lottie/lottie.dart';
 import 'package:project_iti/core/constant/app_color.dart';
 import 'package:project_iti/core/constant/app_style.dart';
+import 'package:project_iti/core/helper/showsnakbar.dart';
 import 'package:project_iti/core/widgets/container_icon.dart';
 import 'package:project_iti/core/widgets/custom_button.dart';
 import 'package:project_iti/core/widgets/image_widget.dart';
+import 'package:project_iti/feature/cart/cubit/cart_cubit.dart';
+import 'package:project_iti/feature/cart/cubit/cart_state.dart';
 import 'package:project_iti/feature/models/home_model.dart';
 
 class ProductDetails extends StatelessWidget {
@@ -97,9 +102,44 @@ class ProductDetails extends StatelessWidget {
                     child: Row(
                       children: [
                         Expanded(
-                          child: Custombutton(
-                            buttonName: "Buy Now",
-                            onPressed: () {},
+                          child: BlocBuilder<CartCubit, CartState>(
+                            builder: (context, state) {
+                              final cartCubit = context.read<CartCubit>();
+                              final isProductInCart = cartCubit.isProductInCart(
+                                product,
+                              );
+                              if (state is CartLoadingState) {
+                                return SizedBox(
+                                  height: 60.h,
+                                  child: Center(
+                                    child: Lottie.asset(
+                                      "assets/images/Add_To_Cart_Success.json",
+                                      width: 70.w,
+                                      height: 70.h,
+                                    ),
+                                  ),
+                                );
+                              }
+                              return Custombutton(
+                                buttonName: isProductInCart
+                                    ? "Added to Cart"
+                                    : "Buy Now",
+
+                                onPressed: isProductInCart
+                                    ? null
+                                    : () async {
+                                        cartCubit.addToCart(product);
+                                        await Future.delayed(
+                                          Duration(seconds: 2),
+                                        );
+                                        showSankBar(
+                                          context,
+                                          text: "Product added to cart",
+                                          color: Colors.green,
+                                        );
+                                      },
+                              );
+                            },
                           ),
                         ),
                         SizedBox(width: 12.w),

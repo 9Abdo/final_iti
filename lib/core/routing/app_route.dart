@@ -13,8 +13,6 @@ import 'package:project_iti/feature/product_details/views/product_details.dart';
 
 import 'package:project_iti/feature/search/search_result_view.dart';
 
-
-
 import 'package:project_iti/feature/splash/splash_view.dart';
 
 GoRouter goRouter = GoRouter(
@@ -66,7 +64,7 @@ GoRouter goRouter = GoRouter(
       name: RouteName.searchResultPath,
       builder: (context, state) {
         final products = state.extra as List<SearchModel>;
-        return SearchResultView(searchmodel: products,);
+        return SearchResultView(searchmodel: products);
       },
     ),
   ],

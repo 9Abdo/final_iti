@@ -1,0 +1,1 @@
+const double discount = 0.10; 

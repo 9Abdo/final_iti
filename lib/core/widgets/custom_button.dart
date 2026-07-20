@@ -12,7 +12,7 @@ class Custombutton extends StatelessWidget {
     this.height = 60,
   });
   final String buttonName;
-  final void Function() onPressed;
+  final void Function()? onPressed;
   final double? width;
   final double? height;
 
