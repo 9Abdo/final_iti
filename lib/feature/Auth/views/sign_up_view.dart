@@ -1,4 +1,3 @@
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,7 +12,6 @@ import 'package:project_iti/core/widgets/custom_text_field.dart';
 import 'package:project_iti/feature/Auth/cubit/auth_cubit.dart';
 import 'package:project_iti/feature/Auth/cubit/auth_state.dart';
 import 'package:project_iti/feature/Auth/widget/row_auth.dart';
-
 
 class SignUpView extends StatefulWidget {
   const SignUpView({super.key});
@@ -46,13 +44,17 @@ class _SignUpViewState extends State<SignUpView> {
                     listener: (context, state) {
                       if (state is SignUpSuccess) {
                         showSankBar(
-                          context,
-                          text: "login_success".tr(),
-                          color: Colors.green,
-                        );
-                        context.pushReplacementNamed(RouteName.mainHomeName);
-                      }
+                        context,
+                        text: "Verification email has been sent",
+                        color: Colors.green,
+                      );
 
+                      context.goNamed
+                      (RouteName.verifyName,
+                      extra: emailcontroller.text);
+
+                      }
+                      
                       if (state is SignUpFailure) {
                         showSankBar(
                           context,

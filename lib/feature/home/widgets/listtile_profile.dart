@@ -3,7 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:project_iti/core/constant/app_style.dart';
 
 class ListtileProfile extends StatelessWidget {
-  const ListtileProfile({super.key});
+  const ListtileProfile({super.key, required this.email});
+  final String email;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +20,13 @@ class ListtileProfile extends StatelessWidget {
         ),
       ),
       title: Text("Hello!", style: AppStyle.subtitle),
-      subtitle: Text("John William", style: AppStyle.textfield),
+      subtitle: Text(
+        email,
+        style: AppStyle.textfield.copyWith(
+          fontWeight: FontWeight.w400,
+          fontSize: 12.sp,
+        ),
+      ),
       trailing: Container(
         width: 48.w,
         height: 48.w,

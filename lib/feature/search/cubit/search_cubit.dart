@@ -14,10 +14,8 @@ class SearchCubit extends Cubit<SearchState> {
 
     try {
       final result = await service.searchProducts(text);
-      print(result.length);
       await Future.delayed(const Duration(seconds: 2));
       emit(SearchSuccess(result));
-      print("Success emitted");
     } catch (e) {
       emit(SearchFailure(e.toString()));
     }

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -15,7 +16,6 @@ import 'package:project_iti/feature/home/widgets/listview_container.dart';
 import 'package:project_iti/feature/home/widgets/slider_view.dart';
 import 'package:project_iti/feature/search/cubit/search_cubit.dart';
 import 'package:project_iti/feature/search/cubit/search_state.dart';
-import 'package:project_iti/feature/services/home_sevices.dart';
 import 'package:project_iti/feature/services/search_services.dart';
 
 class HomePageView extends StatelessWidget {
@@ -23,17 +23,13 @@ class HomePageView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final email = FirebaseAuth.instance.currentUser!.email ?? "";
     return SafeArea(
       child: MultiBlocProvider(
         providers: [
+         
           BlocProvider(
-            create: (_) =>
-                HomeCubit(HomeServices(dio: DioHelper.dio!))
-                  ..getAllProduct(),
-          ),
-          BlocProvider(
-            create: (_) =>
-                SearchCubit(SearchService(dio: DioHelper.dio!)),
+            create: (_) => SearchCubit(SearchService(dio: DioHelper.dio!)),
           ),
         ],
         child: BlocConsumer<SearchCubit, SearchState>(
@@ -50,7 +46,7 @@ class HomePageView extends StatelessWidget {
                 ),
               );
             }
-             
+
             if (state is SearchSuccess) {
               Navigator.of(context).pop();
 
@@ -58,7 +54,7 @@ class HomePageView extends StatelessWidget {
                 RouteName.searchResultPath,
                 extra: {
                   "products": state.products,
-                  "query": context.read<SearchCubit>().lastQuery
+                  "query": context.read<SearchCubit>().lastQuery,
                 },
               );
             }
@@ -66,11 +62,9 @@ class HomePageView extends StatelessWidget {
             if (state is SearchFailure) {
               Navigator.of(context).pop();
 
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(state.error),
-                ),
-              );
+              ScaffoldMessenger.of(
+                context,
+              ).showSnackBar(SnackBar(content: Text(state.error)));
             }
           },
           builder: (context, searchState) {
@@ -78,15 +72,11 @@ class HomePageView extends StatelessWidget {
               body: BlocBuilder<HomeCubit, HomeState>(
                 builder: (context, homeState) {
                   if (homeState is HomeLoadingState) {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
+                    return const Center(child: CircularProgressIndicator());
                   }
 
                   if (homeState is HomeFailureState) {
-                    return Center(
-                      child: Text(homeState.error),
-                    );
+                    return Center(child: Text(homeState.error));
                   }
 
                   if (homeState is HomeSuccessState) {
@@ -95,7 +85,7 @@ class HomePageView extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const ListtileProfile(),
+                          ListtileProfile(email: email),
 
                           SizedBox(height: 16.h),
 
@@ -120,13 +110,9 @@ class HomePageView extends StatelessWidget {
                           SizedBox(height: 10.h),
 
                           Row(
-                            mainAxisAlignment:
-                                MainAxisAlignment.spaceBetween,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(
-                                "Featured",
-                                style: AppStyle.black24w600,
-                              ),
+                              Text("Featured", style: AppStyle.black24w600),
                               GestureDetector(
                                 onTap: () {
                                   context.pushNamed(
@@ -148,20 +134,14 @@ class HomePageView extends StatelessWidget {
 
                           SizedBox(height: 16.h),
 
-                          ListviewContainer(
-                            product: homeState.product,
-                          ),
+                          ListviewContainer(product: homeState.product),
 
                           SizedBox(height: 20.h),
 
                           Row(
-                            mainAxisAlignment:
-                                MainAxisAlignment.spaceBetween,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(
-                                "Most Popular",
-                                style: AppStyle.black24w600,
-                              ),
+                              Text("Most Popular", style: AppStyle.black24w600),
                               Text(
                                 "See All",
                                 style: TextStyle(
@@ -175,9 +155,7 @@ class HomePageView extends StatelessWidget {
 
                           SizedBox(height: 16.h),
 
-                          ListviewContainer(
-                            product: homeState.product,
-                          ),
+                          ListviewContainer(product: homeState.product),
                         ],
                       ),
                     );

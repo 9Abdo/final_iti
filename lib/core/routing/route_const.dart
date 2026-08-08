@@ -7,6 +7,7 @@ class RoutePath {
   static const String splashscreen = "/splashScreen";
   static const String productPath = "/product";
   static const String searchResultPath = "/SearchResult";
+  static const String verifyPath = "/verify";
 }
 
 class RouteName {
@@ -18,4 +19,5 @@ class RouteName {
   static const String splashscreen = "splashScreen";
   static const String productName = "product";
   static const String searchResultPath = "SearchResult";
+  static const String verifyName = "verify";
 }

@@ -1,10 +1,11 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_iti/core/constant/app_color.dart';
 import 'package:project_iti/core/constant/app_style.dart';
-import 'package:project_iti/core/helper/cach_helper.dart';
+
 import 'package:project_iti/core/routing/route_const.dart';
 
 class AccountView extends StatelessWidget {
@@ -88,8 +89,8 @@ class AccountView extends StatelessWidget {
                     btnOkText: "Log out",
                     btnOkColor: Colors.red,
 
-                    btnOkOnPress: () {
-                      CachHelper.deleteToken();
+                    btnOkOnPress: ()async {
+                      await FirebaseAuth.instance.signOut();
                       context.goNamed(RouteName.loginName);
                     },
                   ).show();
