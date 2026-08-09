@@ -13,7 +13,7 @@ class ListviewContainer extends StatelessWidget {
       height: 180.h,
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
-        itemCount: product.length,
+        itemCount: 7,
         separatorBuilder: (_, __) => SizedBox(width: 15.w),
         itemBuilder: (context, index) {
           return ContainerCart(homemodel: product[index]);

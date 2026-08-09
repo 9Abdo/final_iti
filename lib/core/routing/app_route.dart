@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:project_iti/core/helper/dio_helper.dart';
+
 
 import 'package:project_iti/core/routing/route_const.dart';
 import 'package:project_iti/feature/Auth/cubit/auth_cubit.dart';
@@ -8,13 +8,10 @@ import 'package:project_iti/feature/Auth/views/login_page_view.dart';
 import 'package:project_iti/feature/Auth/views/sign_up_view.dart';
 import 'package:project_iti/feature/Auth/views/verify_email_page_view.dart';
 import 'package:project_iti/feature/Product/views/product.dart';
-import 'package:project_iti/feature/home/cubit/home_cubit.dart';
 import 'package:project_iti/feature/home/views/main_home_pgae.dart';
 import 'package:project_iti/feature/models/home_model.dart';
 import 'package:project_iti/feature/product_details/views/product_details.dart';
-
 import 'package:project_iti/feature/search/search_result_view.dart';
-import 'package:project_iti/feature/services/home_sevices.dart';
 
 import 'package:project_iti/feature/splash/splash_view.dart';
 
@@ -40,18 +37,15 @@ GoRouter goRouter = GoRouter(
       builder: (context, state) {
         final email = state.extra as String;
 
-        return VerifyEmailPageView(email:email);
+        return VerifyEmailPageView(email: email);
       },
     ),
     GoRoute(
       path: RoutePath.mainHomePath,
       name: RouteName.mainHomeName,
-      builder: (context, state) => BlocProvider(
-        create: (_) =>
-            HomeCubit(HomeServices(dio: DioHelper.dio!))..getAllProduct(),
-        child: MainHomeView(),
-      ),
+      builder: (context, state) => MainHomeView(),
     ),
+
     GoRoute(
       path: RoutePath.productDetailsPath,
       name: RouteName.productDetailsName,

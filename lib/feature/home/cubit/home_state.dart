@@ -9,8 +9,9 @@ class HomeLoadingState extends HomeState {}
 
 class HomeSuccessState extends HomeState {
   final List<Homemodel> product;
+    final List<Homemodel> popularProducts;
 
-  HomeSuccessState({required this.product});
+  HomeSuccessState( {required this.product, required this.popularProducts});
 }
 
 class HomeFailureState extends HomeState {

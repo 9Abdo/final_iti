@@ -4,8 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
-import 'package:project_iti/core/constant/app_color.dart';
-import 'package:project_iti/core/constant/app_style.dart';
 import 'package:project_iti/core/helper/dio_helper.dart';
 import 'package:project_iti/core/routing/route_const.dart';
 import 'package:project_iti/core/widgets/custom_text_field.dart';
@@ -13,6 +11,7 @@ import 'package:project_iti/feature/home/cubit/home_cubit.dart';
 import 'package:project_iti/feature/home/cubit/home_state.dart';
 import 'package:project_iti/feature/home/widgets/listtile_profile.dart';
 import 'package:project_iti/feature/home/widgets/listview_container.dart';
+import 'package:project_iti/feature/home/widgets/row_see_all.dart';
 import 'package:project_iti/feature/home/widgets/slider_view.dart';
 import 'package:project_iti/feature/search/cubit/search_cubit.dart';
 import 'package:project_iti/feature/search/cubit/search_state.dart';
@@ -27,7 +26,6 @@ class HomePageView extends StatelessWidget {
     return SafeArea(
       child: MultiBlocProvider(
         providers: [
-         
           BlocProvider(
             create: (_) => SearchCubit(SearchService(dio: DioHelper.dio!)),
           ),
@@ -109,27 +107,14 @@ class HomePageView extends StatelessWidget {
 
                           SizedBox(height: 10.h),
 
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text("Featured", style: AppStyle.black24w600),
-                              GestureDetector(
-                                onTap: () {
-                                  context.pushNamed(
-                                    RouteName.productName,
-                                    extra: homeState.product,
-                                  );
-                                },
-                                child: Text(
-                                  "See All",
-                                  style: TextStyle(
-                                    color: AppColor.primaycolor,
-                                    fontSize: 14.sp,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ),
-                            ],
+                          RowSeeAll(
+                            text_1: "Featured",
+                            onTap: () {
+                              context.pushNamed(
+                                RouteName.productName,
+                                extra: homeState.product,
+                              );
+                            },
                           ),
 
                           SizedBox(height: 16.h),
@@ -138,24 +123,19 @@ class HomePageView extends StatelessWidget {
 
                           SizedBox(height: 20.h),
 
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text("Most Popular", style: AppStyle.black24w600),
-                              Text(
-                                "See All",
-                                style: TextStyle(
-                                  color: AppColor.primaycolor,
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ],
+                          RowSeeAll(
+                            text_1: "Most Popular",
+                            onTap: () {
+                              context.pushNamed(
+                                RouteName.productName,
+                                extra: homeState.popularProducts,
+                              );
+                            },
                           ),
 
                           SizedBox(height: 16.h),
 
-                          ListviewContainer(product: homeState.product),
+                          ListviewContainer(product: homeState.popularProducts),
                         ],
                       ),
                     );

@@ -16,12 +16,12 @@ class HomeServices {
         .toList();
     return dateHome;
   }
-  Future<List<Homemodel>> getProductsByCategory(int categoryId) async {
+  Future<List<Homemodel>> getProducts_2() async {
     Response response = await dio.get(
-      "https://api.escuelajs.co/api/v1/categories/$categoryId/products",
+      "https://dummyjson.com/products"
     );
 
-    List data = response.data;
+    List data = response.data['products'];
 
     return data
         .map((e) => Homemodel.fromjson(e))
