@@ -11,6 +11,7 @@ import 'package:project_iti/feature/Product/views/product.dart';
 import 'package:project_iti/feature/home/views/main_home_pgae.dart';
 import 'package:project_iti/feature/models/home_model.dart';
 import 'package:project_iti/feature/product_details/views/product_details.dart';
+import 'package:project_iti/feature/pymant/pymant_page_view.dart';
 import 'package:project_iti/feature/search/search_result_view.dart';
 
 import 'package:project_iti/feature/splash/splash_view.dart';
@@ -80,5 +81,13 @@ GoRouter goRouter = GoRouter(
         );
       },
     ),
+    GoRoute(
+      path: RoutePath.pymantPath,
+      name: RouteName.pymantName,
+      builder: (context, state){
+      final amount = state.extra as double;
+        return PaymentPageView(amount: amount,);
+      },
+    )
   ],
 );

@@ -14,9 +14,7 @@ class ListtileProfile extends StatelessWidget {
         height: 48.h,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          image: DecorationImage(
-            image: AssetImage("assets/images/Ellipse 1.png"),
-          ),
+          image: DecorationImage(image: AssetImage("assets/images/p.jpg")),
         ),
       ),
       title: Text("Hello!", style: AppStyle.subtitle),

@@ -26,7 +26,7 @@ class AccountView extends StatelessWidget {
                 decoration: BoxDecoration(
                   image: DecorationImage(
                     fit: BoxFit.contain,
-                    image: AssetImage("assets/images/Ellipse 1.png"),
+                    image: AssetImage("assets/images/p.jpg"),
                   ),
                   shape: BoxShape.circle,
                 ),
@@ -89,7 +89,7 @@ class AccountView extends StatelessWidget {
                     btnOkText: "Log out",
                     btnOkColor: Colors.red,
 
-                    btnOkOnPress: ()async {
+                    btnOkOnPress: () async {
                       await FirebaseAuth.instance.signOut();
                       context.goNamed(RouteName.loginName);
                     },
