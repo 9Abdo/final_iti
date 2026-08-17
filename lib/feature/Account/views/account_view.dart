@@ -7,6 +7,7 @@ import 'package:project_iti/core/constant/app_color.dart';
 import 'package:project_iti/core/constant/app_style.dart';
 
 import 'package:project_iti/core/routing/route_const.dart';
+import 'package:project_iti/feature/Account/widgets/card_list_tile_account.dart';
 
 class AccountView extends StatelessWidget {
   const AccountView({super.key});
@@ -34,45 +35,21 @@ class AccountView extends StatelessWidget {
               SizedBox(height: 16),
               Center(child: Text("Abdelrhman", style: AppStyle.black24w600)),
               SizedBox(height: 16.sp),
-              Card(
-                child: ListTile(
-                  leading: Icon(Icons.person),
-                  trailing: Icon(Icons.arrow_forward_ios),
-                  title: Text("Profile", style: AppStyle.textfield),
-                ),
+              CardListTileAccount(iconData: Icons.person, title: "Profile"),
+              SizedBox(height: 8.sp),
+              CardListTileAccount(
+                iconData: Icons.inventory_2,
+                title: "Orders",
+                onTap: () {
+                  context.pushNamed(RouteName.orderName);
+                },
               ),
               SizedBox(height: 8.sp),
-              Card(
-                child: ListTile(
-                  leading: Icon(Icons.settings),
-                  trailing: Icon(Icons.arrow_forward_ios),
-                  title: Text("Setting", style: AppStyle.textfield),
-                ),
-              ),
+              CardListTileAccount(iconData: Icons.email, title: "Contact"),
               SizedBox(height: 8.sp),
-              Card(
-                child: ListTile(
-                  leading: Icon(Icons.email),
-                  trailing: Icon(Icons.arrow_forward_ios),
-                  title: Text("Contact", style: AppStyle.textfield),
-                ),
-              ),
+              CardListTileAccount(iconData: Icons.share, title: "Share"),
               SizedBox(height: 8.sp),
-              Card(
-                child: ListTile(
-                  leading: Icon(Icons.share),
-                  trailing: Icon(Icons.arrow_forward_ios),
-                  title: Text("Share", style: AppStyle.textfield),
-                ),
-              ),
-              SizedBox(height: 8.sp),
-              Card(
-                child: ListTile(
-                  leading: Icon(Icons.help),
-                  trailing: Icon(Icons.arrow_forward_ios),
-                  title: Text("Help", style: AppStyle.textfield),
-                ),
-              ),
+              CardListTileAccount(iconData: Icons.help, title: "Help"),
               SizedBox(height: 8.sp),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(backgroundColor: Colors.red),

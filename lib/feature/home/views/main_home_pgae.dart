@@ -40,7 +40,7 @@ class _MainHomeViewState extends State<MainHomeView> {
           child: NavigationBarTheme(
             data: NavigationBarThemeData(
               backgroundColor: Colors.white,
-              indicatorColor: AppColor.primaycolor.withOpacity(.15),
+              indicatorColor: AppColor.primaycolor.withValues(alpha: .15),
 
               iconTheme: WidgetStateProperty.resolveWith((states) {
                 return IconThemeData(

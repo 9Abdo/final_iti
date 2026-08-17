@@ -9,6 +9,8 @@ class RoutePath {
   static const String searchResultPath = "/SearchResult";
   static const String verifyPath = "/verify";
   static const String pymantPath = "/pymant";
+  static const String orderPath = "/order";
+  static const String orderdetailsPath = "/orderdetails";
 }
 
 class RouteName {
@@ -22,4 +24,6 @@ class RouteName {
   static const String searchResultPath = "SearchResult";
   static const String verifyName = "verify";
   static const String pymantName = "pymant";
+  static const String orderName = "order";
+  static const String orderdetailsName = "orderdetails";
 }

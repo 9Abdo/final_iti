@@ -25,6 +25,13 @@ class CartServices {
           .toList();
     });
   }
+   Future<List<Homemodel>> getCartProductsOnce() async {
+    final snapshot = await firestore.collection("cart").get();
+
+    return snapshot.docs
+        .map((doc) => Homemodel.fromFirestore(doc.data()))
+        .toList();
+  }
 
   Future<void> updateQuantity({required Homemodel homemodel}) async {
     await firestore
@@ -34,4 +41,11 @@ class CartServices {
       "quantity": homemodel.quantity,
     });
   }
+  Future<void> clearCart() async {
+  final snapshot = await firestore.collection("cart").get();
+
+  for (final doc in snapshot.docs) {
+    await doc.reference.delete();
+  }
+}
 }

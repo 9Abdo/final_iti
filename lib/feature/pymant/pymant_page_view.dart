@@ -1,13 +1,18 @@
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:project_iti/core/helper/showsnakbar.dart';
 import 'package:project_iti/core/widgets/custom_button.dart';
+import 'package:project_iti/feature/models/order_model.dart';
 import 'package:project_iti/feature/pymant/widget/cash_on_delivery.dart';
 import 'package:project_iti/feature/pymant/widget/pymant_option.dart';
 import 'package:project_iti/feature/pymant/widget/row_pyamnt.dart';
 import 'package:project_iti/feature/pymant/widget/show_dialgo_pymant.dart';
 import 'package:project_iti/feature/pymant/widget/visa_card_widget.dart';
 import 'package:project_iti/feature/pymant/widget/vodfone_cash_widget.dart';
+import 'package:project_iti/feature/services/cart_services.dart';
+import 'package:project_iti/feature/services/order_services.dart';
 
 class PaymentPageView extends StatefulWidget {
   const PaymentPageView({super.key, required this.amount});
@@ -69,14 +74,28 @@ class _PaymentPageViewState extends State<PaymentPageView> {
     );
 
     await Future.delayed(const Duration(seconds: 2));
+    final cartProducts = await CartServices().getCartProductsOnce();
 
+    final order = OrderModel(
+  id: "",
+  userId: FirebaseAuth.instance.currentUser!.uid,
+  status: "Pending",
+  date: DateTime.now(),
+  subtotal: widget.amount,
+  delivery: 50,
+  total: widget.amount + 50,
+  paymentMethod: selectedMethod,
+  products: cartProducts,
+);
+
+    await OrderServices().addOrder(order: order.toJson());
+
+    await CartServices().clearCart();
     if (!mounted) return;
 
     Navigator.pop(context);
-    showdialgopayment(amount: widget.amount,context);
+    showdialgopayment(amount: widget.amount, context);
   }
-
-  
 
   @override
   Widget build(BuildContext context) {
