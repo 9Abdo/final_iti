@@ -8,7 +8,7 @@ class RowStatusDate extends StatelessWidget {
     required this.orderDate,
   });
   final String orderStatus;
-  final DateTime orderDate;
+  final String  orderDate;
 
   @override
   Widget build(BuildContext context) {

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:project_iti/core/constant/app_color.dart';
 import 'package:project_iti/core/constant/app_style.dart';
+import 'package:project_iti/core/helper/data_format.dart';
 import 'package:project_iti/feature/models/order_model.dart';
 import 'package:project_iti/feature/order_details/widget/containerbutton.dart';
 import 'package:project_iti/feature/order_details/widget/paymentmethod.dart';
@@ -38,7 +39,10 @@ class OrderDetailsPageView extends StatelessWidget {
 
             SizedBox(height: 8.h),
 
-            RowStatusDate(orderStatus: order.status, orderDate: order.date),
+            RowStatusDate(
+              orderStatus: order.status,
+              orderDate: DateFormatHelper.formatDayMonthYear(order.date),
+            ),
 
             SizedBox(height: 20.h),
 

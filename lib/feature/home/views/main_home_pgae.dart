@@ -1,14 +1,13 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+
 import 'package:project_iti/core/constant/app_color.dart';
 
 import 'package:project_iti/feature/Account/views/account_view.dart';
 import 'package:project_iti/feature/cart/views/cart_page_view.dart';
+import 'package:project_iti/feature/chat/views/chatbotpageview.dart';
 import 'package:project_iti/feature/favourite/views/favourite_page_view.dart';
-
-
 import 'package:project_iti/feature/home/views/home_page_view.dart';
 
 class MainHomeView extends StatefulWidget {
@@ -19,12 +18,13 @@ class MainHomeView extends StatefulWidget {
 }
 
 class _MainHomeViewState extends State<MainHomeView> {
-  int currentIndex = 0;
+  int currentIndex = 2;
 
   final List<Widget> pages = [
-    HomePageView(),
     FavouritePageView(),
     CartPageView(),
+    HomePageView(),
+    Chatbotpageview(),
     AccountView(),
   ];
 
@@ -33,75 +33,42 @@ class _MainHomeViewState extends State<MainHomeView> {
     return Scaffold(
       body: pages[currentIndex],
 
-      bottomNavigationBar: Padding(
-        padding: EdgeInsets.all(12.w),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(25.r),
-          child: NavigationBarTheme(
-            data: NavigationBarThemeData(
-              backgroundColor: Colors.white,
-              indicatorColor: AppColor.primaycolor.withValues(alpha: .15),
+      bottomNavigationBar: SafeArea(
+        top: false,
+        maintainBottomViewPadding: true,
+        child: CurvedNavigationBar(
+          index: currentIndex,
 
-              iconTheme: WidgetStateProperty.resolveWith((states) {
-                return IconThemeData(
-                  color: states.contains(WidgetState.selected)
-                      ? AppColor.primaycolor
-                      : Colors.grey,
-                  size: 26.sp,
-                );
-              }),
+          height: 80.h,
 
-              labelTextStyle: WidgetStateProperty.resolveWith((states) {
-                return TextStyle(
-                  color: states.contains(WidgetState.selected)
-                      ? AppColor.primaycolor
-                      : Colors.grey,
-                  fontSize: 12.sp,
-                  fontWeight: states.contains(WidgetState.selected)
-                      ? FontWeight.bold
-                      : FontWeight.w500,
-                );
-              }),
-            ),
-            child: NavigationBar(
-              height: 75.h,
-              selectedIndex: currentIndex,
+          backgroundColor: Colors.transparent,
 
-              labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
+          color: AppColor.primaycolor,
+          maxWidth: double.infinity,
 
-              onDestinationSelected: (index) {
-                setState(() {
-                  currentIndex = index;
-                });
-              },
+          buttonBackgroundColor: Colors.orange,
 
-              destinations: [
-                NavigationDestination(
-                  icon: const Icon(Icons.home_outlined),
-                  selectedIcon: const Icon(Icons.home),
-                  label: "home".tr(),
-                ),
+          animationDuration: const Duration(milliseconds: 500),
 
-                NavigationDestination(
-                  icon: const Icon(Icons.favorite_outline),
-                  selectedIcon: const Icon(Icons.favorite),
-                  label: "Favourite",
-                ),
+          animationCurve: Curves.easeInOut,
 
-                NavigationDestination(
-                  icon: const Icon(Icons.shopping_bag_outlined),
-                  selectedIcon: const Icon(Icons.shopping_bag),
-                  label: "cart".tr(),
-                ),
+          items: [
+            Icon(Icons.favorite_outline, size: 32.sp, color: Colors.white),
 
-                NavigationDestination(
-                  icon: const Icon(Icons.person_outline),
-                  selectedIcon: const Icon(Icons.person),
-                  label: "account".tr(),
-                ),
-              ],
-            ),
-          ),
+            Icon(Icons.shopping_bag_outlined, size: 32.sp, color: Colors.white),
+
+            Icon(Icons.home, size: 32.sp, color: Colors.white),
+
+            Icon(Icons.chat_bubble_outline, size: 32.sp, color: Colors.white),
+
+            Icon(Icons.person_outline, size: 32.sp, color: Colors.white),
+          ],
+
+          onTap: (index) {
+            setState(() {
+              currentIndex = index;
+            });
+          },
         ),
       ),
     );

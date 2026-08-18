@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -7,9 +8,11 @@ import 'package:project_iti/core/helper/dio_helper.dart';
 import 'package:project_iti/core/routing/app_route.dart';
 import 'package:project_iti/feature/Auth/cubit/auth_cubit.dart';
 import 'package:project_iti/feature/cart/cubit/cart_cubit.dart';
+import 'package:project_iti/feature/chat/cubit/chat_cubit.dart';
 import 'package:project_iti/feature/favourite/cubit/favourite_cubit.dart';
 import 'package:project_iti/feature/home/cubit/home_cubit.dart';
 import 'package:project_iti/feature/services/cart_services.dart';
+import 'package:project_iti/feature/services/chat_bot_services.dart';
 import 'package:project_iti/feature/services/favourite_services.dart';
 import 'package:project_iti/feature/services/home_sevices.dart';
 
@@ -40,11 +43,17 @@ class MyApp extends StatelessWidget {
       child: MultiBlocProvider(
         providers: [
           BlocProvider(create: (context) => CartCubit(CartServices())),
-          BlocProvider(create: (context) => FavouriteCubit(FavouriteServices())),
-          BlocProvider(create: (context)=>AuthCubit()),
-           BlocProvider(
-        create: (_) =>
-            HomeCubit(HomeServices(dio: DioHelper.dio!))..getHomeProducts(),)
+          BlocProvider(
+            create: (context) => FavouriteCubit(FavouriteServices()),
+          ),
+          BlocProvider(create: (context) => AuthCubit()),
+          BlocProvider(
+            create: (_) =>
+                HomeCubit(HomeServices(dio: DioHelper.dio!))..getHomeProducts(),
+          ),
+          BlocProvider(
+            create: (context) => ChatCubit(ChatBotServices(dio: Dio())),
+          ),
         ],
         child: MaterialApp.router(
           debugShowCheckedModeBanner: false,
